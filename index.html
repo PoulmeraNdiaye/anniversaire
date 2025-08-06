@@ -3,167 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joyeux Anniversaire Mon Amour</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Unlock Our Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Dancing Script', cursive;
-            background-color: #add8e6;
-            color: #003366;
-            display: flex;
             height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #add8e6; /* Bleu clair */
+            font-family: 'Great Vibes', cursive;
             overflow: hidden;
         }
 
-        .sidebar {
-            width: 200px;
-            background-color: #005f8a;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20px;
-        }
-
-        .sidebar img {
-            width: 150px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .sidebar button {
-            background: none;
-            color: #add8e6;
-            padding: 15px;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-            width: 100%;
-            transition: 0.3s;
-            text-align: left;
-        }
-
-        .sidebar button i {
-            margin-right: 10px;
-        }
-
-        .sidebar button:hover {
-            background-color: #0077b6;
-            color: white;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 200px;
-            width: calc(100% - 200px);
-            height: 70px;
-            background-color: #005f8a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Great Vibes', cursive;
-            font-size: 2.5em;
-            color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .content {
-            margin-left: 200px;
-            margin-top: 70px;
-            padding: 30px;
-            height: calc(100vh - 70px);
-            overflow-y: auto;
-        }
-
-        .romantic-text {
-            font-size: 1.8em;
-            line-height: 1.6;
-            max-width: 700px;
-            margin: 50px auto;
+        .lock-container {
             text-align: center;
+            position: relative;
         }
 
-        .heart {
+        .heart-lock {
+            font-size: 180px;
+            color: #0077b6; /* Bleu plus vif pour contraste */
+            animation: pulse 2s infinite;
+            margin-bottom: 30px;
+        }
+
+        input, button {
+            width: 120px;
+            height: 50px;
+            font-size: 22px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        input {
+            border: none;
+            background-color: #dbefff; /* Bleu très pâle */
+            color: #003366;
+        }
+
+        button {
+            background-color: #0077b6; /* Bleu vif */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #005f8a; /* Bleu foncé au survol */
+        }
+
+        .error {
+            color: #ff4d6d;
+            font-size: 16px;
+            display: none;
+            margin-top: 10px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        .heart-particle {
             position: fixed;
-            top: -10px;
             color: #0077b6;
             font-size: 24px;
-            animation: fall linear forwards;
+            animation: float linear forwards;
         }
 
-        @keyframes fall {
+        @keyframes float {
             to {
                 transform: translateY(100vh);
                 opacity: 0;
             }
         }
+
+        .subtitle {
+            font-size: 28px;
+            color: #003366;
+            margin-top: 5px;
+        }
+
+        h2 {
+            color: #003366;
+        }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <img src="coeur_bleu.jpeg" alt="Cœur bleu papillon">
-        <button onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Accueil</button>
-        <button onclick="window.location.href='message.html'"><i class="fas fa-envelope"></i> Message</button>
-        <button onclick="window.location.href='souvenir.html'"><i class="fas fa-photo-film"></i> Souvenir</button>
-        <button><i class="fas fa-music"></i> Musique</button>
+    <div class="lock-container">
+        <div class="heart-lock">💙🔒</div>
+        <h2>Entre le code secret</h2>
+        <div class="subtitle">The Day We Got Together</div>
+        <input type="text" id="code" placeholder="****" maxlength="4">
+        <br>
+        <button onclick="checkCode()">Ouvrir</button>
+        <p id="error" class="error">Code incorrect ! Essaie encore.</p>
     </div>
-
-    <div class="header">Joyeux Anniversaire Mon Amour 💙</div>
-
-    <div class="content">
-        <div class="romantic-text" id="typed-text"></div>
-    </div>
-
-    <!-- Audio (même sur toutes les pages) -->
-    <audio id="bg-music" src="musique.mp3" loop></audio>
 
     <script>
-        // Effet machine à écrire
-        const text = "Mon amour, chaque instant passé à tes côtés illumine ma vie. Ton sourire est mon soleil, ta voix est ma mélodie préférée, tes beaux yeux restent mon meilleur refuge et ton existence est mon plus beau cadeau. Tu representes ma moitie, mon meilleur ami, mon ame soeur, mon confident, l'epaule sur qui me reposer , bref ma vie toute entiere. Joyeux anniversaire à la personne qui fait battre mon cœur chaque jour un peu plus fort. Je t'aime plus que tout au monde Amadou Sarr 💙";
-        let index = 0;
-        function typeWriter() {
-            if (index < text.length) {
-                document.getElementById("typed-text").innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeWriter, 50);
+        function checkCode() {
+            const code = document.getElementById('code').value;
+            if (code === '1905') {
+                document.querySelector('.heart-lock').innerHTML = '💙';
+                document.querySelector('.heart-lock').style.animation = 'none';
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } else {
+                document.getElementById('error').style.display = 'block';
             }
         }
-        typeWriter();
 
-        // Cœurs flottants
         function createHeart() {
-            const heart = document.createElement("div");
-            heart.classList.add("heart");
-            heart.innerHTML = "💙";
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '💙';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
             document.body.appendChild(heart);
             setTimeout(() => heart.remove(), 5000);
         }
         setInterval(createHeart, 500);
-
-        // Gestion de la musique
-        const music = document.getElementById("bg-music");
-
-        if (localStorage.getItem("musicPlaying") === "true") {
-            music.play().catch(() => {});
-        }
-
-        function startMusic() {
-            music.play().then(() => {
-                localStorage.setItem("musicPlaying", "true");
-            }).catch(() => {});
-            document.removeEventListener("click", startMusic);
-        }
-
-        document.addEventListener("click", startMusic);
-
-        window.addEventListener("beforeunload", () => {
-            localStorage.setItem("musicPlaying", "false");
-        });
     </script>
 </body>
 </html>
