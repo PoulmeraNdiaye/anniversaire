@@ -26,6 +26,7 @@
             justify-content: center;
             margin-top: 50px;
             max-width: 1000px;
+            padding: 10px;
         }
 
         /* Enveloppe */
@@ -70,6 +71,7 @@
             justify-content: center;
             align-items: center;
             z-index: 5;
+            padding: 20px;
         }
 
         /* Carte du message */
@@ -121,12 +123,58 @@
             transform: rotateX(180deg);
         }
 
+        /* --------- RESPONSIVE --------- */
+        @media (max-width: 1024px) {
+            .enveloppe {
+                width: 180px;
+                height: 120px;
+            }
+            .message {
+                width: 70%;
+                font-size: 1.3em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .enveloppe {
+                width: 150px;
+                height: 100px;
+            }
+            .message {
+                width: 80%;
+                font-size: 1.2em;
+                padding: 20px;
+            }
+            .return-btn {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                gap: 15px;
+            }
+            .enveloppe {
+                width: 120px;
+                height: 80px;
+            }
+            .message {
+                width: 90%;
+                font-size: 1em;
+                padding: 15px;
+            }
+            .return-btn {
+                font-size: 0.9em;
+                padding: 8px 16px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- Bouton Retour (fixé en haut à droite) -->
-    <button class="return-btn" onclick="window.location.href='index.html'">Retour</button>
+    <button class="return-btn" onclick="window.location.href='accueil.html'">Retour</button>
 
     <!-- Enveloppes -->
     <div class="container">
@@ -143,43 +191,50 @@
     <div class="overlay" id="overlay">
         <div class="message" id="msg1">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Mon trésor, chaque moment passé avec toi est un miracle.
+            Mon trésor, les moments passés avec toi restent mes plus beaux souvenirs.
+            Je ne me lasserai jamais de te dire et te prouver à quel point tu comptes pour moi.
             Joyeux anniversaire à celui qui fait battre mon cœur plus fort chaque jour. 💙
         </div>
 
         <div class="message" id="msg2" style="display:none;">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Ton sourire illumine ma vie comme un rayon de soleil.
+            Ton sourire illumine ma vie, ton regard me fait perdre tous les moyens.
+            Tu es ma personne préférée et pour rien au monde je ne voudrai te perdre.
             Que ton anniversaire soit aussi merveilleux que toi. 💌
         </div>
 
         <div class="message" id="msg3" style="display:none;">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Avec toi, chaque jour est une fête.
-            Mais aujourd’hui, c’est toi qu’on célèbre, mon amour infini. 💖
+            Avec toi, chaque jour est encore plus belle. Tu es mon ideal , 
+            le seul homme qui compte à mes yeux. Je suis la plus chanceuse
+            de t'avoir à mes cotés et je voudrai que cette journée soit memorable pour toi 
+            car aujourd’hui, c’est toi qu’on célèbre, mon amour infini. 💖
         </div>
 
         <div class="message" id="msg4" style="display:none;">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Si l’amour avait un visage, ce serait le tien.
-            Joyeux anniversaire, mon étoile qui brille dans mon ciel. 🌟
+            Depuis que tu es entré dans ma vie, tout a pris un sens.
+            Tu es mon bonheur, ma force et ma plus belle histoire d’amour.
+            Je t’aime d’un amour qui dépasse les mots🌟
         </div>
 
         <div class="message" id="msg5" style="display:none;">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Je t’aime au-delà des mots, au-delà des rêves, au-delà du temps.
-            Joyeux anniversaire à l’homme de ma vie. 💞
+            Je ne sais pas ce que j’ai fait pour mériter quelqu’un d’aussi incroyable que toi, 
+            mais je promets de passer ma vie à te chérir, te protéger et 
+            t’aimer comme personne ne l’a jamais fait. 💞
         </div>
 
         <div class="message" id="msg6" style="display:none;">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Chaque battement de mon cœur crie ton nom.
-            Merci d’être mon amour, mon ami et mon refuge. 💙
+            Quand je pense à l’avenir, je ne vois qu’une seule chose : toi et moi, 
+            main dans la main, construisant une vie remplie de bonheur et d’amour infini. 💙
         </div>
 
         <div class="message" id="msg7" style="display:none;">
             <span class="close-btn" onclick="closeMessage()">×</span>
-            Dans ce monde immense, je t’ai trouvé.
+            Dans ce monde immense, je t’ai trouvé. Avec toi, je découvre chaque jour la vraie signification du bonheur.
+            Peu importe où la vie nous mène, tant que je suis avec toi, je suis la plus comblée.
             Et c’est toi que je veux aimer pour toujours. 💌
         </div>
     </div>
@@ -194,21 +249,6 @@
         function closeMessage() {
             document.getElementById('overlay').style.display = 'none';
         }
-         // Gestion de la musique
-        const music = document.getElementById("bg-music");
-        if (localStorage.getItem("musicPlaying") === "true") {
-            music.play().catch(() => {});
-        }
-        function startMusic() {
-            music.play().then(() => {
-                localStorage.setItem("musicPlaying", "true");
-            }).catch(() => {});
-            document.removeEventListener("click", startMusic);
-        }
-        document.addEventListener("click", startMusic);
-        window.addEventListener("beforeunload", () => {
-            localStorage.setItem("musicPlaying", "false");
-        });
     </script>
 
 </body>

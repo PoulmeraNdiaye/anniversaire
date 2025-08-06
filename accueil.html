@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joyeux Anniversaire Mon Amour</title>
+    <title>Joyeux Anniversaire Mon Coeur</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -18,6 +18,7 @@
             overflow: hidden;
         }
 
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 200px;
             background-color: #005f8a;
@@ -54,6 +55,7 @@
             color: white;
         }
 
+        /* --- HEADER --- */
         .header {
             position: fixed;
             top: 0;
@@ -68,8 +70,11 @@
             font-size: 2.5em;
             color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-align: center;
+            padding: 0 10px;
         }
 
+        /* --- CONTENU --- */
         .content {
             margin-left: 200px;
             margin-top: 70px;
@@ -84,8 +89,10 @@
             max-width: 700px;
             margin: 50px auto;
             text-align: center;
+            padding: 0 15px;
         }
 
+        /* --- CŒURS FLOTTANTS --- */
         .heart {
             position: fixed;
             top: -10px;
@@ -100,29 +107,99 @@
                 opacity: 0;
             }
         }
+
+        /* --- RESPONSIVE --- */
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                flex-direction: row;
+                justify-content: space-around;
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .sidebar img {
+                width: 50px;
+                margin: 0;
+            }
+
+            .sidebar button {
+                font-size: 16px;
+                padding: 10px;
+                text-align: center;
+            }
+
+            .header {
+                position: relative;
+                left: 0;
+                width: 100%;
+                height: auto;
+                font-size: 1.8em;
+                padding: 10px 0;
+            }
+
+            .content {
+                margin-left: 0;
+                margin-top: 0;
+                height: auto;
+                padding: 15px;
+            }
+
+            .romantic-text {
+                font-size: 1.2em;
+                margin: 20px auto;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .romantic-text {
+                font-size: 1em;
+                line-height: 1.4;
+            }
+
+            .sidebar img {
+                width: 40px;
+            }
+
+            .sidebar button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .header {
+                font-size: 1.5em;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- SIDEBAR avec image avant Accueil -->
     <div class="sidebar">
         <img src="coeur_bleu.jpeg" alt="Cœur bleu papillon">
-        <button onclick="window.location.href='index.html'"><i class="fas fa-home"></i> Accueil</button>
+        <button onclick="window.location.href='accueil.html'"><i class="fas fa-home"></i> Accueil</button>
         <button onclick="window.location.href='message.html'"><i class="fas fa-envelope"></i> Message</button>
         <button onclick="window.location.href='souvenir.html'"><i class="fas fa-photo-film"></i> Souvenir</button>
         <button><i class="fas fa-music"></i> Musique</button>
     </div>
 
+    <!-- HEADER -->
     <div class="header">Joyeux Anniversaire Mon Amour 💙</div>
 
+    <!-- CONTENU -->
     <div class="content">
         <div class="romantic-text" id="typed-text"></div>
     </div>
 
-    <!-- Audio (même sur toutes les pages) -->
+    <!-- MUSIQUE -->
     <audio id="bg-music" src="musique.mp3" loop></audio>
 
     <script>
-        // Effet machine à écrire
-        const text = "Mon amour, chaque instant passé à tes côtés illumine ma vie. Ton sourire est mon soleil, ta voix est ma mélodie préférée, tes beaux yeux restent mon meilleur refuge et ton existence est mon plus beau cadeau. Tu representes ma moitie, mon meilleur ami, mon ame soeur, mon confident, l'epaule sur qui me reposer , bref ma vie toute entiere. Joyeux anniversaire à la personne qui fait battre mon cœur chaque jour un peu plus fort. Je t'aime plus que tout au monde Amadou Sarr 💙";
+        // --- EFFET MACHINE A ECRIRE ---
+        const text = "Mon amour, chaque instant passé à tes côtés illumine ma vie. Ton sourire est mon soleil, ta voix est ma mélodie préférée, tes beaux yeux restent mon meilleur refuge et ton existence est mon plus beau cadeau. Tu représentes ma moitié, mon meilleur ami, mon âme sœur, mon confident, l'épaule sur qui me reposer, bref ma vie toute entière. Joyeux anniversaire à la personne qui fait battre mon cœur chaque jour un peu plus fort. Je t'aime plus que tout au monde Amadou Sarr 💙";
         let index = 0;
         function typeWriter() {
             if (index < text.length) {
@@ -133,7 +210,7 @@
         }
         typeWriter();
 
-        // Cœurs flottants
+        // --- CŒURS FLOTTANTS ---
         function createHeart() {
             const heart = document.createElement("div");
             heart.classList.add("heart");
@@ -145,22 +222,18 @@
         }
         setInterval(createHeart, 500);
 
-        // Gestion de la musique
+        // --- MUSIQUE ---
         const music = document.getElementById("bg-music");
-
         if (localStorage.getItem("musicPlaying") === "true") {
             music.play().catch(() => {});
         }
-
         function startMusic() {
             music.play().then(() => {
                 localStorage.setItem("musicPlaying", "true");
             }).catch(() => {});
             document.removeEventListener("click", startMusic);
         }
-
         document.addEventListener("click", startMusic);
-
         window.addEventListener("beforeunload", () => {
             localStorage.setItem("musicPlaying", "false");
         });

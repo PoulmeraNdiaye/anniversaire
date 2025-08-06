@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: #add8e6; /* Bleu clair */
+            background: #add8e6;
             font-family: 'Dancing Script', cursive;
             color: #003366;
             overflow: hidden;
@@ -61,7 +61,7 @@
             100% { opacity: 0; }
         }
 
-        /* Texte au centre */
+        /* Texte central */
         .text-overlay {
             position: absolute;
             bottom: 20%;
@@ -78,42 +78,120 @@
             0% { opacity: 0.4; transform: translateX(-50%) scale(0.9); }
             100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
         }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .media-container img,
+            .media-container video {
+                width: 25%;
+            }
+            .text-overlay {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .media-container img,
+            .media-container video {
+                width: 35%;
+            }
+            .text-overlay {
+                font-size: 2em;
+                bottom: 15%;
+            }
+            .back-btn {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .media-container img,
+            .media-container video {
+                width: 50%;
+            }
+            .text-overlay {
+                font-size: 1.5em;
+                bottom: 10%;
+            }
+            .back-btn {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* Bouton pour lancer la musique */
+        #play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #005f8a;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 20;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        #play-btn:hover {
+            background: #0077b6;
+        }
     </style>
 </head>
 <body>
 
     <!-- Bouton retour -->
-    <button class="back-btn" onclick="window.location.href='index.html'">Retour</button>
+    <button class="back-btn" onclick="window.location.href='accueil.html'">Retour</button>
 
     <!-- Musique -->
-    <audio id="bg-music" src="musique.mp3" autoplay loop></audio>
+    <audio id="bg-music" src="photograph.mp3" loop muted></audio>
+
+    <!-- Bouton pour lancer la musique -->
+    <button id="play-btn">🎵 Lancer la musique</button>
 
     <!-- Conteneur principal -->
     <div class="media-container">
-        <img src="image1.jpg" style="animation-delay: 0s;">
+        <img src="image1.jpg" style="animation-delay: 2s;">
         <img src="image2.jpg" style="animation-delay: 2s;">
         <video src="video1.mp4" autoplay muted loop style="animation-delay: 4s;"></video>
         <img src="image3.jpg" style="animation-delay: 6s;">
-        <video src="video2.mp4" autoplay muted loop style="animation-delay: 8s;"></video>
+        <video src="video2.mp4" autoplay muted loop style="animation-delay: 6s;"></video>
+        <video src="video3.mp4" autoplay muted loop style="animation-delay: 10s;"></video>
+        <img src="image5.jpg" style="animation-delay: 8s;">
+        <img src="image6.jpg" style="animation-delay: 4s;">
+        <video src="video4.mp4" autoplay muted loop style="animation-delay: 5s;"></video>
+        <img src="image4.jpg" style="animation-delay: 3s;">
     </div>
 
     <!-- Texte central -->
     <div class="text-overlay">Je t’aime ma vie💙</div>
 
     <script>
+        // Position aléatoire des médias
         const mediaElements = document.querySelectorAll('.media-container img, .media-container video');
-
         function randomizePositions() {
             mediaElements.forEach(media => {
-                const randomLeft = Math.random() * 80; // Se déplace horizontalement
-                media.style.top = "5%"; // Toujours en haut
+                const randomLeft = Math.random() * 80;
+                media.style.top = "5%";
                 media.style.left = randomLeft + "%";
             });
         }
-
-        // Met à jour la position toutes les 5 secondes
         setInterval(randomizePositions, 5000);
         randomizePositions();
+
+        // Gestion de la musique
+        const music = document.getElementById("bg-music");
+        const playBtn = document.getElementById("play-btn");
+
+        playBtn.addEventListener("click", () => {
+            music.muted = false;
+            music.play().catch(err => console.log("Lecture bloquée :", err));
+            playBtn.style.display = "none";
+        });
     </script>
 
 </body>
