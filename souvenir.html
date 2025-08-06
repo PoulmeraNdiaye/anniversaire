@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Souvenirs</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #add8e6; /* Bleu clair */
+            font-family: 'Dancing Script', cursive;
+            color: #003366;
+            overflow: hidden;
+        }
+
+        /* Bouton retour */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #005f8a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 10px;
+            z-index: 10;
+        }
+
+        .back-btn:hover {
+            background: #0077b6;
+        }
+
+        /* Conteneur principal */
+        .media-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* Images et vidéos */
+        .media-container img,
+        .media-container video {
+            position: absolute;
+            width: 20%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeSlide 10s infinite;
+        }
+
+        /* Animation de défilement */
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+            10% { opacity: 1; transform: translateY(0) scale(1); }
+            40% { opacity: 1; }
+            50% { opacity: 0; transform: translateY(-20px) scale(1.1); }
+            100% { opacity: 0; }
+        }
+
+        /* Texte au centre */
+        .text-overlay {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            font-weight: bold;
+            animation: textFade 3s infinite alternate;
+            text-align: center;
+            z-index: 5;
+        }
+
+        @keyframes textFade {
+            0% { opacity: 0.4; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bouton retour -->
+    <button class="back-btn" onclick="window.location.href='index.html'">Retour</button>
+
+    <!-- Musique -->
+    <audio id="bg-music" src="musique.mp3" autoplay loop></audio>
+
+    <!-- Conteneur principal -->
+    <div class="media-container">
+        <img src="image1.jpg" style="animation-delay: 0s;">
+        <img src="image2.jpg" style="animation-delay: 2s;">
+        <video src="video1.mp4" autoplay muted loop style="animation-delay: 4s;"></video>
+        <img src="image3.jpg" style="animation-delay: 6s;">
+        <video src="video2.mp4" autoplay muted loop style="animation-delay: 8s;"></video>
+    </div>
+
+    <!-- Texte central -->
+    <div class="text-overlay">Je t’aime ma vie💙</div>
+
+    <script>
+        const mediaElements = document.querySelectorAll('.media-container img, .media-container video');
+
+        function randomizePositions() {
+            mediaElements.forEach(media => {
+                const randomLeft = Math.random() * 80; // Se déplace horizontalement
+                media.style.top = "5%"; // Toujours en haut
+                media.style.left = randomLeft + "%";
+            });
+        }
+
+        // Met à jour la position toutes les 5 secondes
+        setInterval(randomizePositions, 5000);
+        randomizePositions();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages pour Toi</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #b3e5fc, #81d4fa);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            font-family: 'Dancing Script', cursive;
+            position: relative;
+        }
+
+        /* Conteneur des enveloppes */
+        .container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 50px;
+            max-width: 1000px;
+        }
+
+        /* Enveloppe */
+        .enveloppe {
+            position: relative;
+            width: 200px;
+            height: 140px;
+            background: #0288d1;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .enveloppe:hover {
+            transform: scale(1.05);
+        }
+
+        /* Rabat supérieur */
+        .rabat {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background: #03a9f4;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top;
+            transition: transform 0.5s ease;
+        }
+
+        /* Fond semi-transparent derrière le message */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        /* Carte du message */
+        .message {
+            background: white;
+            color: #333;
+            padding: 30px;
+            width: 60%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            font-size: 1.5em;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Bouton de fermeture du message */
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #0288d1;
+        }
+
+        /* Bouton retour (fixé en haut à droite) */
+        .return-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 25px;
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            z-index: 10;
+        }
+
+        .return-btn:hover {
+            background-color: #015a87;
+        }
+
+        /* Animation d'ouverture du rabat */
+        .enveloppe.ouverte .rabat {
+            transform: rotateX(180deg);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Bouton Retour (fixé en haut à droite) -->
+    <button class="return-btn" onclick="window.location.href='index.html'">Retour</button>
+
+    <!-- Enveloppes -->
+    <div class="container">
+        <div class="enveloppe" onclick="showMessage('msg1')"><div class="rabat"></div></div>
+        <div class="enveloppe" onclick="showMessage('msg2')"><div class="rabat"></div></div>
+        <div class="enveloppe" onclick="showMessage('msg3')"><div class="rabat"></div></div>
+        <div class="enveloppe" onclick="showMessage('msg4')"><div class="rabat"></div></div>
+        <div class="enveloppe" onclick="showMessage('msg5')"><div class="rabat"></div></div>
+        <div class="enveloppe" onclick="showMessage('msg6')"><div class="rabat"></div></div>
+        <div class="enveloppe" onclick="showMessage('msg7')"><div class="rabat"></div></div>
+    </div>
+
+    <!-- Overlay + Messages -->
+    <div class="overlay" id="overlay">
+        <div class="message" id="msg1">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Mon trésor, chaque moment passé avec toi est un miracle.
+            Joyeux anniversaire à celui qui fait battre mon cœur plus fort chaque jour. 💙
+        </div>
+
+        <div class="message" id="msg2" style="display:none;">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Ton sourire illumine ma vie comme un rayon de soleil.
+            Que ton anniversaire soit aussi merveilleux que toi. 💌
+        </div>
+
+        <div class="message" id="msg3" style="display:none;">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Avec toi, chaque jour est une fête.
+            Mais aujourd’hui, c’est toi qu’on célèbre, mon amour infini. 💖
+        </div>
+
+        <div class="message" id="msg4" style="display:none;">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Si l’amour avait un visage, ce serait le tien.
+            Joyeux anniversaire, mon étoile qui brille dans mon ciel. 🌟
+        </div>
+
+        <div class="message" id="msg5" style="display:none;">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Je t’aime au-delà des mots, au-delà des rêves, au-delà du temps.
+            Joyeux anniversaire à l’homme de ma vie. 💞
+        </div>
+
+        <div class="message" id="msg6" style="display:none;">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Chaque battement de mon cœur crie ton nom.
+            Merci d’être mon amour, mon ami et mon refuge. 💙
+        </div>
+
+        <div class="message" id="msg7" style="display:none;">
+            <span class="close-btn" onclick="closeMessage()">×</span>
+            Dans ce monde immense, je t’ai trouvé.
+            Et c’est toi que je veux aimer pour toujours. 💌
+        </div>
+    </div>
+
+    <script>
+        function showMessage(id) {
+            document.querySelectorAll('.message').forEach(msg => msg.style.display = 'none');
+            document.getElementById('overlay').style.display = 'flex';
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function closeMessage() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+         // Gestion de la musique
+        const music = document.getElementById("bg-music");
+        if (localStorage.getItem("musicPlaying") === "true") {
+            music.play().catch(() => {});
+        }
+        function startMusic() {
+            music.play().then(() => {
+                localStorage.setItem("musicPlaying", "true");
+            }).catch(() => {});
+            document.removeEventListener("click", startMusic);
+        }
+        document.addEventListener("click", startMusic);
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("musicPlaying", "false");
+        });
+    </script>
+
+</body>
+</html>
