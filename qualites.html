@@ -283,9 +283,6 @@
 
   <div class="footer">Merci d’être aussi merveilleux 💙</div>
 
-  <!-- Musique douce -->
-  
-
   <script>
     function setVH() {
       document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
@@ -347,7 +344,6 @@
       `;
 
       card.addEventListener('mouseenter', () => {
-        playSound();
         // Explosion de particules
         for (let i = 0; i < 5; i++) {
           createHeart();
@@ -383,15 +379,6 @@
 
     setInterval(createHeart, 600);
     setInterval(createStar, 700);
-
-    
-
-    
-
-    const music = document.getElementById('bg-music');
-    document.body.addEventListener('click', () => {
-      music.play().catch(() => {});
-    });
   </script>
 </body>
 </html>
