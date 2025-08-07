@@ -1,198 +1,358 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Souvenirs</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #add8e6;
-            font-family: 'Dancing Script', cursive;
-            color: #003366;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Souvenirs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <style>
+    :root {
+      --vh: 1vh;
+    }
 
-        /* Bouton retour */
-        .back-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #005f8a;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 10px;
-            z-index: 10;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .back-btn:hover {
-            background: #0077b6;
-        }
+    body {
+      font-family: 'Parisienne', cursive;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd);
+      overflow-x: hidden;
+      height: calc(var(--vh, 1vh) * 100);
+      position: relative;
+    }
 
-        /* Conteneur principal */
-        .media-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-        }
+    /* Fond scintillant */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
+      background-size: 20px 20px;
+      opacity: 0.3;
+      z-index: -1;
+      animation: sparkle 5s infinite;
+    }
 
-        /* Images et vidéos */
-        .media-container img,
-        .media-container video {
-            position: absolute;
-            width: 20%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            opacity: 0;
-            animation: fadeSlide 10s infinite;
-        }
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+    }
 
-        /* Animation de défilement */
-        @keyframes fadeSlide {
-            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-            10% { opacity: 1; transform: translateY(0) scale(1); }
-            40% { opacity: 1; }
-            50% { opacity: 0; transform: translateY(-20px) scale(1.1); }
-            100% { opacity: 0; }
-        }
+    /* Titre principal */
+    h1.main-title {
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      color: #ff4b5c;
+      margin: 60px 20px 30px;
+      line-height: 1.4;
+      text-shadow: 0 0 10px rgba(255, 75, 92, 0.8);
+      animation: glow 2s ease-in-out infinite;
+    }
 
-        /* Texte central */
-        .text-overlay {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3em;
-            font-weight: bold;
-            animation: textFade 3s infinite alternate;
-            text-align: center;
-            z-index: 5;
-        }
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 75, 92, 0.8); }
+      50% { text-shadow: 0 0 20px rgba(255, 75, 92, 1); }
+    }
 
-        @keyframes textFade {
-            0% { opacity: 0.4; transform: translateX(-50%) scale(0.9); }
-            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
-        }
+    /* Boutons */
+    .retour, .musique-btn {
+      position: fixed;
+      top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      z-index: 999;
+      background: linear-gradient(45deg, #ff4b5c, #ffdd57);
+      color: white;
+      box-shadow: 0 5px 15px rgba(255, 75, 92, 0.5);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .media-container img,
-            .media-container video {
-                width: 25%;
-            }
-            .text-overlay {
-                font-size: 2.5em;
-            }
-        }
+    .retour {
+      left: 15px;
+    }
 
-        @media (max-width: 768px) {
-            .media-container img,
-            .media-container video {
-                width: 35%;
-            }
-            .text-overlay {
-                font-size: 2em;
-                bottom: 15%;
-            }
-            .back-btn {
-                font-size: 16px;
-                padding: 8px 16px;
-            }
-        }
+    .musique-btn {
+      right: 15px;
+    }
 
-        @media (max-width: 480px) {
-            .media-container img,
-            .media-container video {
-                width: 50%;
-            }
-            .text-overlay {
-                font-size: 1.5em;
-                bottom: 10%;
-            }
-            .back-btn {
-                font-size: 14px;
-                padding: 6px 12px;
-            }
-        }
+    .retour:hover, .musique-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 75, 92, 0.7);
+    }
 
-        /* Bouton pour lancer la musique */
-        #play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #005f8a;
-            color: white;
-            padding: 15px 30px;
-            font-size: 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            z-index: 20;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+    /* Album */
+    .book {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 30px auto;
+      width: 95%;
+      max-width: 1100px;
+      perspective: 1500px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 15px;
+    }
 
-        #play-btn:hover {
-            background: #0077b6;
-        }
-    </style>
+    .page {
+      background: linear-gradient(135deg, #fff, #f5f5f5);
+      width: 40%;
+      margin: 15px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      transition: transform 0.8s ease;
+      position: relative;
+      height: auto;
+      border: 3px solid #ffdd57;
+    }
+
+    .page:hover {
+      transform: rotateY(10deg) scale(1.05);
+    }
+
+    .page img, .page video {
+      width: 100%;
+      max-width: 80%;
+      height: auto;
+      display: block;
+      max-height: 250px;
+      object-fit: contain;
+      margin: 0 auto;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .description {
+      padding: 15px;
+      text-align: center;
+      font-size: 1.3rem;
+      color: #004d99;
+      font-family: 'Parisienne', cursive;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Cœurs animés */
+    .page .coeur {
+      position: absolute;
+      font-size: 18px;
+      color: #ff4b5c;
+      animation: float-heart 4s infinite ease-in-out;
+      z-index: 10;
+      opacity: 0.9;
+    }
+
+    @keyframes float-heart {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+
+    /* Particules */
+    .heart, .star {
+      position: fixed;
+      font-size: 18px;
+      animation: float-particle linear forwards;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .heart { color: #ff4b5c; }
+    .star { color: #ffdd57; }
+
+    @keyframes float-particle {
+      0% { transform: translateY(0) translateX(0); opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(var(--x, 50px)); opacity: 0; }
+    }
+
+    /* Guirlandes lumineuses */
+    .garland {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      z-index: 2;
+    }
+
+    .garland span {
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #ffdd57, #ff4b5c);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 221, 87, 1);
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .garland span:nth-child(odd) { animation-delay: 0.5s; }
+    .garland span:nth-child(even) { animation-delay: 1s; }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1.main-title { font-size: 2.2rem; margin: 50px 15px 20px; }
+      .page { width: 90%; margin: 10px; }
+      .page img, .page video { max-height: 200px; max-width: 90%; }
+      .description { font-size: 1.1rem; padding: 10px; }
+      .retour, .musique-btn { padding: 8px 15px; font-size: 0.9rem; }
+      .page .coeur { font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      h1.main-title { font-size: 1.8rem; margin: 40px 10px 15px; }
+      .page img, .page video { max-height: 180px; max-width: 90%; }
+      .description { font-size: 1rem; padding: 8px; }
+      .retour, .musique-btn { padding: 6px 12px; font-size: 0.8rem; }
+      .page .coeur { font-size: 14px; }
+    }
+  </style>
 </head>
 <body>
+  <!-- Guirlandes -->
+  <div class="garland">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
 
-    <!-- Bouton retour -->
-    <button class="back-btn" onclick="window.location.href='accueil.html'">Retour</button>
+  <!-- Boutons -->
+  <button class="retour" onclick="window.location.href='accueil.html'"><i class="bi bi-arrow-left-circle-fill"></i> Retour</button>
+  <button class="musique-btn" onclick="toggleMusic()"><i id="music-icon" class="bi bi-play-fill"></i> Musique</button>
 
-    <!-- Musique -->
-    <audio id="bg-music" src="photograph.mp3" loop muted></audio>
+  <!-- Titre principal -->
+  <h1 class="main-title">
+    We keep this love in this photograph<br />
+    We made these memories for ourselves
+  </h1>
 
-    <!-- Bouton pour lancer la musique -->
-    <button id="play-btn">🎵 Lancer la musique</button>
-
-    <!-- Conteneur principal -->
-    <div class="media-container">
-        <img src="image1.jpg" style="animation-delay: 2s;">
-        <img src="image2.jpg" style="animation-delay: 2s;">
-        <video src="video1.mp4" autoplay muted loop style="animation-delay: 4s;"></video>
-        <img src="image3.jpg" style="animation-delay: 6s;">
-        <video src="video2.mp4" autoplay muted loop style="animation-delay: 6s;"></video>
-        <video src="video3.mp4" autoplay muted loop style="animation-delay: 10s;"></video>
-        <img src="image5.jpg" style="animation-delay: 8s;">
-        <img src="image6.jpg" style="animation-delay: 4s;">
-        <video src="video4.mp4" autoplay muted loop style="animation-delay: 5s;"></video>
-        <img src="image4.jpg" style="animation-delay: 3s;">
+  <!-- Album "livre animé" -->
+  <div class="book">
+    <div class="page">
+      <img src="image1.jpg" alt="Souvenir 1" />
+      <div class="description">Notre regard qui reflète l'amour qu'on se porte 👀</div>
     </div>
+    <div class="page">
+      <img src="image2.jpg" alt="Souvenir 2" />
+      <div class="description">Le plus charismatique du monde 💞</div>
+    </div>
+    <div class="page">
+      <video src="video1.mp4" autoplay muted loop></video>
+      <div class="description">Un bisou qui veut tout dire 💋</div>
+    </div>
+    <div class="page">
+      <video src="video2.mp4" autoplay muted loop></video>
+      <div class="description">Un fou rire partagé 😄</div>
+    </div>
+    <div class="page">
+      <img src="image3.jpg" alt="Souvenir 3" />
+      <div class="description">Ton sourire, mon bonheur 😊</div>
+    </div>
+    <div class="page">
+      <video src="video3.mp4" autoplay muted loop></video>
+      <div class="description">Un souvenir inoubliable ✨</div>
+    </div>
+    <div class="page">
+      <img src="image4.jpg" alt="Souvenir 4" />
+      <div class="description">Nos délires inexplicables 😄</div>
+    </div>
+    <div class="page">
+      <video src="video4.mp4" autoplay muted loop></video>
+      <div class="description">Un petit moment rien qu'à nous ❤️</div>
+    </div>
+    <div class="page">
+      <img src="image5.jpg" alt="Souvenir 5" />
+      <div class="description">Tu es toujours ancré en moi 💞</div>
+    </div>
+    <div class="page">
+      <img src="image6.jpg" alt="Souvenir 6" />
+      <div class="description">Toi et moi pour toujours 💑</div>
+    </div>
+  </div>
 
-    <!-- Texte central -->
-    <div class="text-overlay">Je t’aime ma vie💙</div>
+  <script>
+    function setVH() {
+      document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+    }
 
-    <script>
-        // Position aléatoire des médias
-        const mediaElements = document.querySelectorAll('.media-container img, .media-container video');
-        function randomizePositions() {
-            mediaElements.forEach(media => {
-                const randomLeft = Math.random() * 80;
-                media.style.top = "5%";
-                media.style.left = randomLeft + "%";
-            });
-        }
-        setInterval(randomizePositions, 5000);
-        randomizePositions();
+    window.addEventListener('load', setVH);
+    window.addEventListener('resize', setVH);
 
-        // Gestion de la musique
-        const music = document.getElementById("bg-music");
-        const playBtn = document.getElementById("play-btn");
+    // Ajoute 3 cœurs par page
+    document.querySelectorAll('.page').forEach(page => {
+      for (let i = 0; i < 3; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('coeur');
+        heart.innerHTML = '💖';
+        heart.style.top = Math.random() * (page.clientHeight - 20) + 'px';
+        heart.style.left = Math.random() * (page.clientWidth - 20) + 'px';
+        heart.style.animationDelay = (Math.random() * 4) + 's';
+        page.appendChild(heart);
+      }
+    });
 
-        playBtn.addEventListener("click", () => {
-            music.muted = false;
-            music.play().catch(err => console.log("Lecture bloquée :", err));
-            playBtn.style.display = "none";
+    // Particules flottantes
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.innerHTML = '✨';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 5000);
+    }
+
+    setInterval(createHeart, 600);
+    setInterval(createStar, 700);
+
+    // Gestion de la musique
+    const music = new Audio('photograph.mp3');
+    let playing = false;
+    const musicIcon = document.getElementById('music-icon');
+
+    function toggleMusic() {
+      if (!playing) {
+        music.loop = true;
+        music.play().then(() => {
+          musicIcon.className = 'bi bi-pause-fill';
+          playing = true;
+        }).catch(() => {
+          alert('Cliquez pour démarrer la musique !');
         });
-    </script>
-
+      } else {
+        music.pause();
+        musicIcon.className = 'bi bi-play-fill';
+        playing = false;
+      }
+    }
+  </script>
 </body>
 </html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ma Lettre pour Toi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <style>
+    :root {
+      --vh: 1vh;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Parisienne', cursive;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd);
+      overflow-x: hidden;
+      min-height: calc(var(--vh, 1vh) * 100);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Fond scintillant */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
+      background-size: 20px 20px;
+      opacity: 0.3;
+      z-index: -1;
+      animation: sparkle 5s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Boutons */
+    .retour, .musique-btn {
+      position: fixed;
+      top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1rem;
+      z-index: 999;
+      background: linear-gradient(45deg, #ff4b5c, #ffdd57);
+      color: white;
+      box-shadow: 0 5px 15px rgba(255, 75, 92, 0.5);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .retour {
+      left: 20px;
+    }
+
+    .musique-btn {
+      right: 20px;
+    }
+
+    .retour:hover, .musique-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(255, 75, 92, 0.7);
+    }
+
+    /* Titre */
+    h1 {
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.2rem;
+      margin: 80px 20px 40px;
+      background: linear-gradient(90deg, #790813);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 4px solid #ff4b5c;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
+      text-shadow: 0 0 10px rgba(255, 75, 92, 0.8);
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Lettre */
+    .letter-container {
+      max-width: 800px;
+      min-height: 300px;
+      margin: 40px auto;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff, #f5f5f5);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      border: 2px solid #ffdd57;
+      position: relative;
+      text-align: center;
+      color: #004d99;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      overflow: hidden;
+    }
+
+    .letter-content {
+      display: none;
+    }
+
+    .letter-content.show {
+      display: block;
+    }
+
+    .letter-content p {
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Cœurs animés */
+    .letter-container .coeur {
+      position: absolute;
+      font-size: 20px;
+      color: #ff4b5c;
+      animation: float-heart 4s infinite ease-in-out;
+      z-index: 10;
+      opacity: 0.9;
+    }
+
+    @keyframes float-heart {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+    }
+
+    /* Guirlandes lumineuses */
+    .garland {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      z-index: 2;
+    }
+
+    .garland span {
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #ffdd57, #ff4b5c);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 221, 87, 1);
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .garland span:nth-child(odd) { animation-delay: 0.5s; }
+    .garland span:nth-child(even) { animation-delay: 1s; }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    /* Particules */
+    .heart, .star {
+      position: fixed;
+      font-size: 20px;
+      animation: float-particle linear forwards;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .heart { color: #ff4b5c; }
+    .star { color: #ffdd57; }
+
+    @keyframes float-particle {
+      0% { transform: translateY(0) translateX(0); opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(var(--x, 50px)); opacity: 0; }
+    }
+
+    /* Musique cachée */
+    audio {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+        margin: 60px 15px 30px;
+      }
+      .letter-container {
+        max-width: 90%;
+        min-height: 250px;
+        padding: 20px;
+        font-size: 1.1rem;
+      }
+      .retour, .musique-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      .coeur { font-size: 18px; }
+      .heart, .star { font-size: 18px; }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+        margin: 50px 10px 20px;
+      }
+      .letter-container {
+        max-width: 85%;
+        min-height: 200px;
+        padding: 15px;
+        font-size: 1rem;
+      }
+      .retour, .musique-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+      .coeur { font-size: 16px; }
+      .heart, .star { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Guirlandes -->
+  <div class="garland">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Boutons -->
+  <a href="accueil.html" class="retour"><i class="bi bi-arrow-left-circle-fill"></i> Retour</a>
+  <button class="musique-btn" onclick="toggleMusic()"><i id="music-icon" class="bi bi-play-fill"></i> Musique</button>
+
+  <!-- Titre principal -->
+  <h1>Ma Lettre pour Toi</h1>
+
+  <!-- Lettre -->
+  <div class="letter-container" data-aos="fade-up" data-aos-delay="200">
+    <div class="letter-content" id="letter-text"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    function setVH() {
+      document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+    }
+
+    window.addEventListener('load', setVH);
+    window.addEventListener('resize', setVH);
+
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Effet de texte tapé pour la lettre
+    const letterText = `
+      Mon amour,
+
+Depuis le jour où nos chemins se sont croisés, mon cœur a trouvé son rythme, et ma vie, une lumière nouvelle.
+Comme un ciel parsemé d’étoiles, tout s’est illuminé dès que ton regard a croisé le mien.
+Tu es mon refuge, ma paix, ma joie profonde.
+Chaque seconde passée à tes côtés est un trésor que je garde précieusement dans le coffre de mon cœur.
+Ton sourire a le pouvoir de faire battre mon cœur plus fort, de chasser mes peines, et de remplir mon âme de douceur.
+
+Ta tendresse me touche, ta force m’inspire, ton rire me fait fondre.
+Tu es cette mélodie douce qui berce mes jours, cette lumière discrète qui éclaire mes nuits.
+Je rêve d’un avenir tissé de mille souvenirs partagés, d’une vie construite main dans la main, avec toi, dans l’amour, la complicité et la sincérité.
+
+Tu es l’homme que j’attendais, celui que mon cœur appelait sans le savoir.
+Celui qui me comble, ki gueune si mane, ki bokoul ak keine, car tu es, de loin, le plus précieux.
+Mon amour pour toi grandit chaque jour, même quand tout semble s'effondrer entre nous.
+Notre lien est si fort qu’il nous relève toujours, plus soudés, après chaque épreuve.
+
+Je suis tellement liée à toi que ton absence pèse sur mon cœur.
+Même le silence me blesse quand il n’est pas rempli du son de ta voix.
+Je te dis que je t’aime, encore et encore, mais ces mots restent trop faibles pour exprimer tout ce que je ressens.
+Mangley nianal yallah samal mala, yallah dolil la soutoura ak taysir, yallah aar leu, takhawou la ba do guiss leine loula diakhal, yallah bayila ak sa saguo banga motali leip loy mbeubeut.
+
+Je t’aime profondément, sincèrement, avec une intensité douce et brûlante qui ne s’éteindra jamais mon cœur .
+
+À toi, pour l’éternité. 💖
+    `;
+    const letterElem = document.getElementById('letter-text');
+    let i = 0;
+
+    function typeWriter() {
+      if (i < letterText.length) {
+        if (letterText.charAt(i) === '\n') {
+          letterElem.innerHTML += '<br>';
+        } else {
+          letterElem.innerHTML += letterText.charAt(i);
+        }
+        i++;
+        setTimeout(typeWriter, 50);
+      } else {
+        letterElem.classList.add('show');
+      }
+    }
+
+    window.addEventListener('load', () => {
+      letterElem.classList.add('show');
+      typeWriter();
+    });
+
+    // Ajoute 3 cœurs à la lettre
+    const letter = document.querySelector('.letter-container');
+    for (let i = 0; i < 3; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('coeur');
+      heart.innerHTML = '💖';
+      heart.style.top = Math.random() * (letter.clientHeight - 20) + 'px';
+      heart.style.left = Math.random() * (letter.clientWidth - 20) + 'px';
+      heart.style.animationDelay = (Math.random() * 4) + 's';
+      letter.appendChild(heart);
+    }
+
+    // Particules flottantes
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
+      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.innerHTML = '✨';
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 5000);
+    }
+
+    setInterval(createHeart, 600);
+    setInterval(createStar, 700);
+
+    // Explosion de particules au clic sur la lettre
+    letter.addEventListener('click', () => {
+      for (let i = 0; i < 5; i++) {
+        createHeart();
+        createStar();
+      }
+    });
+
+    // Gestion de la musique
+    const music = new Audio('love.mp3');
+    let playing = false;
+    const musicIcon = document.getElementById('music-icon');
+
+    function toggleMusic() {
+      if (!playing) {
+        music.loop = true;
+        music.play().then(() => {
+          musicIcon.className = 'bi bi-pause-fill';
+          playing = true;
+        }).catch(() => {
+          alert('Cliquez pour démarrer la musique !');
+        });
+      } else {
+        music.pause();
+        musicIcon.className = 'bi bi-play-fill';
+        playing = false;
+      }
+    }
+  </script>
+</body>
+</html>
