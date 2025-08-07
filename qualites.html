@@ -384,16 +384,9 @@
     setInterval(createHeart, 600);
     setInterval(createStar, 700);
 
-    // Gestion du son
-    const sound = new Audio('musique.mp3');
-    sound.volume = 0.1;
+    
 
-    function playSound() {
-      if (sound.paused) {
-        sound.currentTime = 0;
-        sound.play().catch(() => {});
-      }
-    }
+    
 
     const music = document.getElementById('bg-music');
     document.body.addEventListener('click', () => {
