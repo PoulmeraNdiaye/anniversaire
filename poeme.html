@@ -29,6 +29,7 @@
       position: relative;
       overflow-x: hidden;
       animation: gradientShift 15s ease-in-out infinite;
+      padding: 20px;
     }
 
     /* Animation du dégradé */
@@ -46,71 +47,87 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 6%, transparent 6%);
-      background-size: 10px 10px;
-      opacity: 0.15;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
+      background-size: 20px 20px;
+      opacity: 0.3;
       z-index: -1;
-      filter: blur(1px);
-      animation: sparkle 8s ease-in-out infinite;
+      animation: sparkle 5s infinite;
     }
 
     @keyframes sparkle {
-      0%, 100% { opacity: 0.15; transform: scale(1); }
-      50% { opacity: 0.3; transform: scale(1.05); }
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.5; }
     }
 
     /* Bouton retour */
     .retour {
       position: fixed;
-      top: 10px;
-      left: 10px;
-      padding: 8px 16px;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
       border: none;
-      border-radius: 20px;
+      border-radius: 25px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 1rem;
       z-index: 1000;
       background: linear-gradient(45deg, #ff4b5c, #ffdd57);
       color: white;
-      box-shadow: 0 4px 12px rgba(255, 75, 92, 0.5);
+      box-shadow: 0 5px 15px rgba(255, 75, 92, 0.5);
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       text-decoration: none;
       font-family: 'Cinzel', serif;
     }
 
     .retour:hover {
       transform: scale(1.05);
-      box-shadow: 0 6px 16px rgba(255, 75, 92, 0.7);
+      box-shadow: 0 8px 20px rgba(255, 75, 92, 0.7);
     }
 
     /* Titre */
     h1 {
       text-align: center;
       font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
-      margin: 60px 15px 25px;
+      font-size: 3.2rem;
+      margin: 80px 20px 40px;
       color: #4A0000;
       -webkit-text-stroke: 0.4px #d4af37;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 10px rgba(255, 75, 92, 0.8);
       letter-spacing: 1.5px;
       background: rgba(255, 255, 255, 0.7);
       padding: 8px 15px;
       border-radius: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 4px solid #ff4b5c;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
 
     /* Contenu */
     .content {
       max-width: 90%;
-      margin: 30px auto;
-      padding: 20px;
-      background: linear-gradient(135deg, #ffffff, #f8f8f8);
-      border: 2px solid #d4af37;
-      border-radius: 12px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      min-height: 300px;
+      margin: 40px auto;
+      padding: 30px;
+      background: linear-gradient(135deg, #fff, #f5f5f5);
+      border: 2px solid #ffdd57;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       position: relative;
+      text-align: center;
+      color: #004d99;
     }
 
     /* Poème */
@@ -124,7 +141,7 @@
     .poem-line {
       display: flex;
       align-items: flex-start;
-      justify-content: flex-start;
+      justify-content: center;
       width: 100%;
       opacity: 1;
     }
@@ -132,9 +149,9 @@
     .poem-line .letter {
       font-family: 'Cinzel', serif;
       font-size: 1.3rem;
-      color: #4A0000;
+      color: #004d99;
       -webkit-text-stroke: 0.3px #d4af37;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
       margin-right: 8px;
       white-space: pre;
     }
@@ -142,10 +159,10 @@
     .poem-line .text {
       font-family: 'Dancing Script', cursive;
       font-size: 1.3rem;
-      color: #1A1A1A;
+      color: #004d99;
       text-align: left;
       flex: 1;
-      line-height: 1.5;
+      line-height: 1.6;
       white-space: pre;
     }
 
@@ -188,12 +205,12 @@
     /* Footer */
     .footer {
       margin: 30px 0;
-      color: #4A0000;
+      color: #004d99;
       font-family: 'Great Vibes', cursive;
       font-size: 1.6rem;
       font-style: italic;
       text-align: center;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     }
 
     /* Guirlandes lumineuses */
@@ -209,12 +226,12 @@
     }
 
     .garland span {
-      width: 10px;
-      height: 10px;
-      background: radial-gradient(circle, #ffdd57, #ff4b5c, #b3d4ff);
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #ffdd57, #ff4b5c);
       border-radius: 50%;
-      box-shadow: 0 0 6px rgba(255, 221, 87, 0.8);
-      animation: twinkle 2.5s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(255, 221, 87, 1);
+      animation: twinkle 2s ease-in-out infinite;
     }
 
     .garland span:nth-child(odd) { animation-delay: 0.5s; }
@@ -222,13 +239,13 @@
 
     @keyframes twinkle {
       0%, 100% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.15); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 1; }
     }
 
     /* Particules */
     .heart, .star, .petal {
       position: fixed;
-      font-size: 10px;
+      font-size: 20px;
       animation: float linear forwards;
       pointer-events: none;
       z-index: 5;
@@ -246,15 +263,16 @@
     /* Responsive */
     @media (max-width: 768px) {
       h1 {
-        font-size: 2rem;
-        margin: 50px 10px 20px;
+        font-size: 2.2rem;
+        margin: 60px 15px 30px;
         -webkit-text-stroke: 0.3px #d4af37;
         padding: 6px 12px;
       }
 
       .content {
         max-width: 95%;
-        padding: 15px;
+        min-height: 250px;
+        padding: 20px;
       }
 
       .poem-line .letter {
@@ -276,28 +294,29 @@
         font-size: 1.2rem;
       }
 
-      .heart, .star, .petal { font-size: 8px; }
-      .garland span { width: 8px; height: 8px; }
+      .heart, .star, .petal { font-size: 18px; }
+      .garland span { width: 15px; height: 15px; }
       .footer { font-size: 1.4rem; }
-      .retour { padding: 6px 12px; font-size: 0.8rem; }
+      .retour { padding: 8px 15px; font-size: 0.9rem; }
     }
 
     @media (max-width: 480px) {
       h1 {
         font-size: 1.8rem;
-        margin: 40px 10px 15px;
+        margin: 50px 10px 20px;
         -webkit-text-stroke: 0.2px #d4af37;
         padding: 5px 10px;
       }
 
       .content {
-        max-width: 95%;
-        padding: 12px;
+        max-width: 85%;
+        min-height: 200px;
+        padding: 15px;
       }
 
       .poem-line {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         gap: 5px;
       }
 
@@ -309,6 +328,7 @@
 
       .poem-line .text {
         font-size: 1.1rem;
+        text-align: center;
         line-height: 1.3;
       }
 
@@ -320,22 +340,23 @@
         font-size: 1rem;
       }
 
-      .heart, .star, .petal { font-size: 7px; }
-      .garland span { width: 7px; height: 7px; }
+      .heart, .star, .petal { font-size: 16px; }
+      .garland span { width: 10px; height: 10px; }
       .footer { font-size: 1.2rem; }
-      .retour { padding: 5px 10px; font-size: 0.7rem; }
+      .retour { padding: 6px 12px; font-size: 0.8rem; }
     }
 
     @media (max-width: 360px) {
       h1 {
         font-size: 1.6rem;
-        margin: 35px 8px 12px;
+        margin: 40px 8px 15px;
         -webkit-text-stroke: 0.2px #d4af37;
         padding: 4px 8px;
       }
 
       .content {
-        max-width: 98%;
+        max-width: 90%;
+        min-height: 180px;
         padding: 10px;
       }
 
@@ -356,16 +377,21 @@
         font-size: 0.9rem;
       }
 
-      .heart, .star, .petal { font-size: 6px; }
-      .garland span { width: 6px; height: 6px; }
+      .heart, .star, .petal { font-size: 14px; }
+      .garland span { width: 8px; height: 8px; }
       .footer { font-size: 1.1rem; }
-      .retour { padding: 4px 8px; font-size: 0.65rem; }
+      .retour { padding: 5px 10px; font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
   <!-- BOUTON RETOUR -->
   <a href="accueil.html" class="retour"><i class="fas fa-arrow-left"></i></a>
+
+  <!-- GUIRLANDES -->
+  <div class="garland">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
 
   <!-- HEADER -->
   <h1>AMADOU SARR</h1>
@@ -374,11 +400,6 @@
   <div class="content">
     <div class="poem" id="poem-container"></div>
     <div class="footer">Je t'aime ma vie 💕</div>
-  </div>
-
-  <!-- GUIRLANDES -->
-  <div class="garland">
-    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
 
   <script>
@@ -395,6 +416,7 @@
       { letter: "A comme Adoration", text: "Car je t’aime sans mesure." },
       { letter: "R comme Roi", text: "Car tu règnes sur mon monde." },
       { letter: "R comme Rêve", text: "Car tu es celui que je ne veux jamais quitter." },
+      { spacer: true },
       { letter: "AS, l’As de mon cœur", text: "Celui qui tient la carte maîtresse de mon cœur." }
     ];
 
@@ -481,7 +503,7 @@
       heart.classList.add('heart');
       heart.innerHTML = '💖';
       heart.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.setProperty('--x', (Math.random() * 50 - 25) + 'px');
+      heart.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
       heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
@@ -492,7 +514,7 @@
       star.classList.add('star');
       star.innerHTML = '✨';
       star.style.left = Math.random() * window.innerWidth + 'px';
-      star.style.setProperty('--x', (Math.random() * 50 - 25)) + 'px';
+      heart.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
       star.style.animationDuration = (Math.random() * 3 + 2) + 's';
       document.body.appendChild(star);
       setTimeout(() => star.remove(), 5000);
@@ -503,7 +525,7 @@
       petal.classList.add('petal');
       petal.innerHTML = '🌸';
       petal.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.setProperty('--x', (Math.random() * 50 - 25) + 'px');
+      petal.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
       petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
       document.body.appendChild(petal);
       setTimeout(() => petal.remove(), 5000);
