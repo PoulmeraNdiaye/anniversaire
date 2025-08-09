@@ -73,35 +73,37 @@
     }
 
     /* Bouton retour */
-    .btn-back {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: linear-gradient(45deg, #ff4b5c, #ffdd57);
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      border-radius: 30px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 15px rgba(255, 75, 92, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-    }
+   .btn-back {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(45deg, #ff4b5c, #ffdd57);
+  color: white;
+  border: none;
+  padding: 8px 20px; /* Réduit le padding pour un bouton plus petit */
+  border-radius: 30px;
+  font-size: 0.9rem; /* Réduit la taille du texte */
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 75, 92, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.btn-back i {
+  font-size: 0.9rem; /* Icône proportionnellement plus petite */
+}
 
     .btn-back:hover {
       transform: scale(1.1);
       box-shadow: 0 8px 20px rgba(255, 75, 92, 0.7);
     }
 
-    .btn-back i {
-      font-size: 1.3rem;
-    }
+    
 
     /* Conteneur cadeau */
     .gift-container {
