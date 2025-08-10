@@ -93,10 +93,9 @@
       font-size: 3.2rem;
       margin: 80px 20px 40px;
       color: #4A0000;
-      -webkit-text-stroke: 0.4px #d4af37;
+      -webkit-text-stroke: 0.4px #ae390b;
       text-shadow: 0 0 10px rgba(255, 75, 92, 0.8);
       letter-spacing: 1.5px;
-      background: rgba(255, 255, 255, 0.7);
       padding: 8px 15px;
       border-radius: 10px;
       white-space: nowrap;
@@ -150,7 +149,7 @@
       font-family: 'Cinzel', serif;
       font-size: 1.3rem;
       color: #004d99;
-      -webkit-text-stroke: 0.3px #d4af37;
+      -webkit-text-stroke: 0.3px #dd4e15;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
       margin-right: 8px;
       white-space: pre;
@@ -260,6 +259,30 @@
       100% { transform: translateY(-100vh) translateX(var(--x, 50px)); opacity: 0; }
     }
 
+    /* Bouton musique */
+    .musique-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #ff4b5c, #ffdd57);
+      padding: 10px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(255, 75, 92, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .musique-btn i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .musique-btn:hover {
+      transform: scale(1.2);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       h1 {
@@ -298,6 +321,14 @@
       .garland span { width: 15px; height: 15px; }
       .footer { font-size: 1.4rem; }
       .retour { padding: 8px 15px; font-size: 0.9rem; }
+      .musique-btn {
+        top: 10px;
+        right: 10px;
+        padding: 8px;
+      }
+      .musique-btn i {
+        font-size: 1.3rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -344,13 +375,19 @@
       .garland span { width: 10px; height: 10px; }
       .footer { font-size: 1.2rem; }
       .retour { padding: 6px 12px; font-size: 0.8rem; }
+      .musique-btn {
+        padding: 6px;
+      }
+      .musique-btn i {
+        font-size: 1.2rem;
+      }
     }
 
     @media (max-width: 360px) {
       h1 {
         font-size: 1.6rem;
         margin: 40px 8px 15px;
-        -webkit-text-stroke: 0.2px #d4af37;
+        -webkit-text-stroke: 0.2px #c5270b;
         padding: 4px 8px;
       }
 
@@ -381,12 +418,21 @@
       .garland span { width: 8px; height: 8px; }
       .footer { font-size: 1.1rem; }
       .retour { padding: 5px 10px; font-size: 0.7rem; }
+      .musique-btn {
+        padding: 5px;
+      }
+      .musique-btn i {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
   <!-- BOUTON RETOUR -->
   <a href="accueil.html" class="retour"><i class="fas fa-arrow-left"></i></a>
+
+  <!-- BOUTON MUSIQUE -->
+  <button class="musique-btn" id="play-pause-btn" title="Lecture/Pause"><i class="fas fa-play"></i></button>
 
   <!-- GUIRLANDES -->
   <div class="garland">
@@ -401,6 +447,9 @@
     <div class="poem" id="poem-container"></div>
     <div class="footer">Je t'aime ma vie 💕</div>
   </div>
+
+  <!-- MUSIQUE -->
+  <audio id="bg-music" src="amadou.mp3" loop></audio>
 
   <script>
     // Poème avec "comme" en minuscules et saut de ligne après "U comme Unique"
@@ -514,7 +563,7 @@
       star.classList.add('star');
       star.innerHTML = '✨';
       star.style.left = Math.random() * window.innerWidth + 'px';
-      heart.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
+      star.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
       star.style.animationDuration = (Math.random() * 3 + 2) + 's';
       document.body.appendChild(star);
       setTimeout(() => star.remove(), 5000);
@@ -525,7 +574,7 @@
       petal.classList.add('petal');
       petal.innerHTML = '🌸';
       petal.style.left = Math.random() * window.innerWidth + 'px';
-      petal.style.setProperty('--x', (Math.random() * 100 - 50) + 'px');
+      petal.style.setProperty('--x', (Math.random() * 100 - 50)) + 'px';
       petal.style.animationDuration = (Math.random() * 3 + 2) + 's';
       document.body.appendChild(petal);
       setTimeout(() => petal.remove(), 5000);
@@ -536,6 +585,36 @@
     setInterval(createHeart, isMobile ? 1000 : 600);
     setInterval(createStar, isMobile ? 1200 : 700);
     setInterval(createPetal, isMobile ? 1400 : 800);
+
+    // Gestion de l'audio
+    const music = document.getElementById("bg-music");
+    const playPauseBtn = document.getElementById("play-pause-btn");
+    let isPlaying = localStorage.getItem("musicPlaying") === "true";
+
+    function toggleMusic() {
+      if (isPlaying) {
+        music.pause();
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      } else {
+        music.play();
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    if (isPlaying) {
+      music.play();
+      playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    }
+
+    playPauseBtn.addEventListener("click", toggleMusic);
+    document.addEventListener("click", () => {
+      if (!isPlaying) toggleMusic();
+    }, { once: true });
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("musicPlaying", isPlaying.toString());
+    });
   </script>
 </body>
 </html>
